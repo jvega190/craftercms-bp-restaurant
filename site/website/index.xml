@@ -3,7 +3,7 @@
 	<content-type>/page/entry</content-type>
 	<placeInNav>true</placeInNav>
 	<display-template>/templates/web/pages/entry.ftl</display-template>
-	<descriptor-mapper>hierarchical-mapper</descriptor-mapper>
+  	<merge-strategy>inherit-levels</merge-strategy>
 	<no-template-required/>
 	<placeInNav>false</placeInNav>
 	<file-name>index.xml</file-name>

@@ -1,12 +1,13 @@
 
 // preloader
 $(window).ready(function(){
-    $('.preloader').fadeOut(1000); // set duration in brackets    
+    $('.preloader').fadeOut(1000); // set duration in brackets
 });
 
 /* HTML document is loaded. DOM is ready.
 -------------------------------------------*/
 $(function(){
+    const isAuthoring = $('html').attr('data-craftercms-preview') === 'true';
 
     // ------- WOW ANIMATED ------ //
     wow = new WOW(
@@ -31,10 +32,29 @@ $(function(){
         $(".navbar-collapse").collapse('hide');
     });
 
-    // NIVO LIGHTBOX
-    $('#gallery a').nivoLightbox({
-        effect: 'fadeScale',
-    });
+    // LIGHTBOX
+    let lightbox;
+    const initLightbox = () => {
+        lightbox = new SimpleLightbox({
+            $items: $('#gallery a')
+        });
+    }
+
+    if (isAuthoring) {
+        let isEditMode;
+        document.addEventListener('craftercms.editMode', (e) => {
+            isEditMode = e.detail;
+            if (isEditMode) {
+                lightbox.destroy();
+            } else {
+                initLightbox();
+            }
+        });
+    } else {
+        initLightbox();
+    }
+
+
     $("#contact-us-form").submit(function(e){
         e.preventDefault();
         var thisButton = $(this);

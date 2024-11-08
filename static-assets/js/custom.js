@@ -34,18 +34,30 @@ $(function(){
 
     // LIGHTBOX
     let lightbox;
+    let lightboxInitialized = false;
     const initLightbox = () => {
-        lightbox = new SimpleLightbox({
-            $items: $('#gallery a')
-        });
+        if (!lightboxInitialized) {
+            lightbox = new SimpleLightbox({
+                $items: $('#gallery a')
+            });
+        }
+        lightboxInitialized = true;
+    }
+
+    const destroyLightbox = () => {
+        lightbox?.destroy();
+        lightboxInitialized = false;
     }
 
     if (isAuthoring) {
-        let isEditMode;
+        // check if html has craftercms-ice-on class
+        let isEditMode = $('html').hasClass('craftercms-ice-on');
+        !isEditMode && initLightbox();
+
         document.addEventListener('craftercms.editMode', (e) => {
             isEditMode = e.detail;
             if (isEditMode) {
-                lightbox.destroy();
+                destroyLightbox();
             } else {
                 initLightbox();
             }

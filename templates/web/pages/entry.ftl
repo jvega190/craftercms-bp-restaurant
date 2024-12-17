@@ -1,7 +1,7 @@
 <#import "/templates/system/common/crafter.ftl" as crafter />
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-craftercms-preview="${modePreview?c}">
     <head>
         <meta charset="utf-8" />
         <title>${contentModel.topSiteName_t}</title>
@@ -41,7 +41,7 @@
 
         <!-- Home section -->
 
-        <@crafter.section id="home" class="parallax-section" style="background-image:url(${contentModel.homepageImage_s})">
+        <@crafter.section id="home" class="parallax-section" $field="homepageImage_s" style="background-image:url(${contentModel.homepageImage_s})">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
